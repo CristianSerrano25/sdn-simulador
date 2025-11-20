@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDN Attack Simulator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ SDN Attack Simulator</h1>
+            <p class="subtitle">Simulador de Detección de Ataques en Redes Definidas por Software</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="duration">Duración de la Simulación (segundos):</label>
+                <input type="number" id="duration" min="1" max="300" value="10" />
+            </div>
+            <button id="startBtn" class="btn btn-primary">▶️ Iniciar Simulación</button>
+            <div id="simStatus" class="status-badge">Esperando</div>
+        </div>
+
+        <div class="dashboard">
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-content">
+                        <h3>Total Paquetes</h3>
+                        <p class="stat-value" id="totalPackets">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3>Hosts Activos</h3>
+                        <p class="stat-value" id="activeHosts">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🚫</div>
+                    <div class="stat-content">
+                        <h3>Hosts Bloqueados</h3>
+                        <p class="stat-value" id="blockedHosts">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card alert">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <h3>Ataques Detectados</h3>
+                        <p class="stat-value" id="attacksDetected">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-label">Progreso de la Simulación</div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <div class="progress-text" id="progressText">0%</div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Distribución de Tráfico</h3>
+                    <canvas id="trafficChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Estado de Hosts</h3>
+                    <canvas id="hostsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Network Topology -->
+            <div class="topology-card">
+                <h3>Topología de Red</h3>
+                <div class="topology">
+                    <div class="network-layer">
+                        <div class="host normal" data-host="H1">
+                            <div class="host-icon">💻</div>
+                            <div class="host-label">H1</div>
+                            <div class="host-ip">192.168.1.1</div>
+                        </div>
+                        <div class="host normal" data-host="H2">
+                            <div class="host-icon">💻</div>
+                            <div class="host-label">H2</div>
+                            <div class="host-ip">192.168.1.2</div>
+                        </div>
+                        <div class="host normal" data-host="H3">
+                            <div class="host-icon">💻</div>
+                            <div class="host-label">H3</div>
+                            <div class="host-ip">192.168.1.3</div>
+                        </div>
+                    </div>
+
+                    <div class="network-layer routers">
+                        <div class="router">
+                            <div class="router-icon">🔀</div>
+                            <div class="router-label">R1</div>
+                        </div>
+                        <div class="router">
+                            <div class="router-icon">🔀</div>
+                            <div class="router-label">R2</div>
+                        </div>
+                    </div>
+
+                    <div class="network-layer">
+                        <div class="host server" data-host="H4">
+                            <div class="host-icon">🖥️</div>
+                            <div class="host-label">H4 (Server)</div>
+                            <div class="host-ip">192.168.1.4</div>
+                        </div>
+                        <div class="host printer" data-host="H5">
+                            <div class="host-icon">🖨️</div>
+                            <div class="host-label">H5 (Printer)</div>
+                            <div class="host-ip">192.168.1.5</div>
+                        </div>
+                        <div class="host attacker" data-host="H6">
+                            <div class="host-icon">🔴</div>
+                            <div class="host-label">H6 (Attacker)</div>
+                            <div class="host-ip">192.168.1.6</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Log -->
+            <div class="log-card">
+                <h3>Registro de Eventos</h3>
+                <div id="eventLog" class="event-log">
+                    <div class="log-entry log-info">Sistema listo para iniciar simulación...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
