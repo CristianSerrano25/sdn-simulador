@@ -1,5 +1,3 @@
-# SDN Attack Simulator
-
 ## Instalación
 
 ```bash
